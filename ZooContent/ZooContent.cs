@@ -8,6 +8,10 @@ namespace Zoo
     /// </summary>
     public abstract class ZooContent : IZooContent
     {
+        public ZooContent()
+        {
+        }
+
         protected ZooContent(string name, string from, float cost)
         {
             Name = name;

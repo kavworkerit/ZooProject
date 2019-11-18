@@ -12,28 +12,27 @@ namespace Zoo
     {
         new IZooContent Create();
     }
-    public interface IIncubator<T>
+    interface IAnimalFactory<T> : IZooContentFactory<T> where T :IAnimal
     {
-        T ParentFather { get; set; }
-        T ParentMather { get; set; }
-    }
-    interface IAnimalFactory<T> : IZooContentFactory<T>, IIncubator<T> where T :IAnimal
-    {
-
+        T Father { get; set; }
+        T Mother { get; set; }
+        new T Create();
     }
 
-    public class AnimalFactory<T> : IAnimalFactory<T> where T : IAnimal,new()
+    public class AnimalFactory<T> : IAnimalFactory<T> where T : IAnimal, new()
     {
-        public AnimalFactory()
+        public AnimalFactory(T father = default, T mother = default)
         {
+            Father = father;
+            Mother = mother;
         }
 
-        public T ParentFather { get; set; }
-        public T ParentMather { get; set; }
+        public T Father { get; set; }
+        public T Mother { get; set; }
 
         public T Create()
         {
-            return new T();
+            return new T() {Name = Father.Name, Nickname = $"{Father.Nickname} - {Mother.Nickname}" };
         }
     }
 }
