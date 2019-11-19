@@ -36,7 +36,7 @@ namespace ConsoleZoo
             Console.WriteLine("Загружаем котиков...");
             List<Cat> catsRead = xml.Deserialize(f) as List<Cat>;
 
-            AnimalFactory<Cat> factoryCats = new AnimalFactory<Cat>(catsRead.First(), catsRead.Last());
+            AnimalFactory<Cat> factoryCats = new AnimalFactory<Cat>(new Selector<Cat>(new Population<Cat>(catsRead)));
             catsRead.Add(factoryCats.Create());
 
             catsRead.ForEach(cat => Console.WriteLine(cat));

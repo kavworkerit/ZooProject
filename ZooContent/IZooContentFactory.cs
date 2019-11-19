@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Zoo
@@ -19,20 +20,60 @@ namespace Zoo
         new T Create();
     }
 
-    public class AnimalFactory<T> : IAnimalFactory<T> where T : IAnimal, new()
+    public class Population<T> where T: IAnimal, new()
     {
-        public AnimalFactory(T father = default, T mother = default)
+        public Population(List<T> instances) => Instances = instances;
+
+        public List<T> Instances { get; set; } = new List<T>();
+    }
+
+    public class Selector<T> where T : IAnimal, new()
+    {
+        public Population<T> InitialPopulation { get; private set; }
+
+        public Selector(Population<T> initialPopulation)
         {
-            Father = father;
-            Mother = mother;
+            InitialPopulation = initialPopulation;
         }
 
-        public T Father { get; set; }
-        public T Mother { get; set; }
+        public void Init(Population<T> initialPopulation)
+        {
+            InitialPopulation = initialPopulation;
+        }
+        public Population<T> Selection()
+        {
+            Population<T> instances = new Population<T>(new List<T>());
+            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Female ).First());
+            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Male).First());
+            return instances;
+        }
+    }
+
+    public class AnimalFactory<T> : IZooContentFactory<T> where T : IAnimal, new()
+    {
+        public Selector<T> Selector { get; set; }
+        public AnimalFactory(Selector<T> selector)
+        {
+            Selector = selector;
+        }
+
+        public AnimalFactory()
+        {
+        }
 
         public T Create()
         {
-            return new T() {Name = Father.Name, Nickname = $"{Father.Nickname} - {Mother.Nickname}" };
+            Population<T> instances = Selector?.Selection();
+            if (instances != null)
+            {
+                T father = instances.Instances.First();
+                T mother = instances.Instances.Last();
+                return new T() { Name = father.Name, Nickname = $"{father.Nickname} - {mother.Nickname}" };
+            }
+            else
+            {
+                return default;
+            }
         }
     }
 }
