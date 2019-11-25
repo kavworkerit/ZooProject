@@ -25,6 +25,8 @@ namespace ConsoleZoo
 
             cats.ForEach(cat => Console.WriteLine(cat));
 
+            List<IAnimal> vipcats = (from cat in cats where cat.Gender == GenderEnum.Female && cat.Nickname.Contains('М') select cat).ToList<IAnimal>();
+
             XmlSerializer xml = new XmlSerializer(cats.GetType());
 
             FileStream f = new FileStream("Cats.xml", FileMode.Create, FileAccess.Write, FileShare.Read);
