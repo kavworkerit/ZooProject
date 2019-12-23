@@ -10,6 +10,7 @@
         {
             Name = "Кошка";
             Reproduction = ReproductionEnum.Genezis;
+            
         }
 
         public override string ToString()
