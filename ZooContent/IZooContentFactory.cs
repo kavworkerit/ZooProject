@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Zoo
+namespace ZooContent
 {
     public interface IZooContentFactory<out T> where T: IZooContent
     {
@@ -43,8 +43,8 @@ namespace Zoo
         public Population<T> Selection()
         {
             Population<T> instances = new Population<T>(new List<T>());
-            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Female ).First());
-            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Male).First());
+            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Female.ToString()).First());
+            instances.Instances.Add(InitialPopulation.Instances.Where(i => i.Gender == GenderEnum.Male.ToString()).First());
             return instances;
         }
     }

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="dcZooDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ZooDC;Integrated Security=True;Pooling=False" SettingsObjectName="ZooLinqDBTest.Properties.Settings" SettingsPropertyName="ZooDCConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="" Member="AContent">
+    <Type Name="AContent" InheritanceCode="Content" IsInheritanceDefault="true">
+      <Column Name="Id" Type="System.Int32" DbType="Int" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AType" Modifier="Virtual" Type="System.String" DbType="varchar(50)" CanBeNull="false" IsDiscriminator="true" />
+      <Type Name="AChildFirst" InheritanceCode="First" Modifier="Sealed">
+        <Column Name="Title" Type="System.String" CanBeNull="false" />
+        <Column Member="AType" Modifier="Override" Type="System.String" CanBeNull="false" />
+      </Type>
+      <Type Name="AChildSecond" InheritanceCode="Second">
+        <Column Name="Title" Type="System.String" CanBeNull="false" />
+        <Column Member="AType" Modifier="Override" Type="System.String" CanBeNull="false" />
+      </Type>
+    </Type>
+  </Table>
+  <Table Name="" Member="A">
+    <Type Name="A" Modifier="Abstract">
+      <Column Name="Name" Type="System.String" DbType="VARCHAR(50)" CanBeNull="false" />
+      <Column Member="Age" Type="System.Int32" DbType="INT" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

@@ -1,4 +1,4 @@
-﻿namespace Zoo
+﻿namespace ZooContent
 {
     public interface IFood
     {

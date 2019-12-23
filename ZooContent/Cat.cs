@@ -1,15 +1,15 @@
-﻿namespace Zoo
+﻿namespace ZooContent
 {
     /// <summary>
     /// Животное, Кошка
     /// </summary>
     [System.Serializable]
-    public class Cat : Animal
+    public partial class Cat : ZooAnimal
     {
-        public Cat()
+        partial void OnCreated()
         {
             Name = "Кошка";
-            Reproduction = ReproductionEnum.Genezis;
+            Reproduction = ReproductionEnum.Genezis.ToString();
         }
 
         public override string ToString()

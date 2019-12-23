@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ZooDb" Class="ZooDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ZooDb;Integrated Security=True;Pooling=False" SettingsObjectName="ZooContent.Properties.Settings" SettingsPropertyName="ZooDbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="" Member="Animal">
+    <Type Name="Animal" Modifier="Abstract">
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" UpdateCheck="WhenChanged" />
+      <Column Name="[From]" Member="From" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Nickname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Reproduction" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="INT" IsReadOnly="true" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AType" Modifier="Virtual" Type="System.String" DbType="VARCHAR(50)" CanBeNull="false" IsDiscriminator="true" />
+      <Type Name="ZooAnimal" InheritanceCode="ZooAnimal" IsInheritanceDefault="true">
+        <Column Name="AType" Modifier="Override" Type="System.String" DbType="VARCHAR(50)" CanBeNull="false" />
+        <Type Name="Cat" InheritanceCode="Cat">
+          <Column Name="Song" Type="System.String" CanBeNull="false" />
+          <Column Name="AType" Modifier="Override" Type="System.String" DbType="VARCHAR(50)" CanBeNull="false" />
+        </Type>
+      </Type>
+    </Type>
+  </Table>
+</Database>

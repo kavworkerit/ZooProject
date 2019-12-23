@@ -1,4 +1,4 @@
-﻿namespace Zoo
+﻿namespace ZooContent
 {
     public interface IEat<in T> where T : IFood
     {

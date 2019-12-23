@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Zoo
+namespace ZooContent
 {
     /// <summary>
     /// Описывает Любое имущество Зоопарка
@@ -12,7 +12,7 @@ namespace Zoo
         {
         }
 
-        protected ZooContent(string name, string from, float cost)
+        protected ZooContent(string name, string from, double cost)
         {
             Name = name;
             From = from;
@@ -21,15 +21,15 @@ namespace Zoo
         /// <summary>
         /// Название
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
         /// <summary>
         /// От куда родом
         /// </summary>
-        public string From { get; set; }
+        public virtual string From { get; set; }
         /// <summary>
         /// Стоимость
         /// </summary>
-        public float Cost { get; set; }
+        public virtual double Cost { get; set; }
 
         public override bool Equals(object obj)
         {
