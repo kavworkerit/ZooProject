@@ -2,34 +2,34 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ZooDb">
   <DataContextMoniker Name="/ZooDbDataContext" />
   <nestedChildShapes>
-    <classShape Id="1d66aadb-13c2-47ba-95b4-dc5476d1bddb" absoluteBounds="0.75, 1.125, 2, 2.9247054036458326">
+    <classShape Id="1d66aadb-13c2-47ba-95b4-dc5476d1bddb" absoluteBounds="0.75, 1.125, 2, 3.1170068359374996">
       <DataClassMoniker Name="/ZooDbDataContext/Animal" />
       <nestedChildShapes>
-        <elementListCompartment Id="9b639a9e-a89d-4c97-a1dd-94a0dec7a1f3" absoluteBounds="0.76499999999999968, 1.585, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9b639a9e-a89d-4c97-a1dd-94a0dec7a1f3" absoluteBounds="0.76499999999999968, 1.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a7b690fc-ff28-4608-818a-e8424c2364f7" absoluteBounds="3.875, 2.75, 2, 1.1939925130208335">
+    <classShape Id="a7b690fc-ff28-4608-818a-e8424c2364f7" absoluteBounds="3.375, 2.875, 2, 1.0016910807291666">
       <DataClassMoniker Name="/ZooDbDataContext/Cat" />
       <nestedChildShapes>
-        <elementListCompartment Id="3d2995a4-05c8-46eb-9335-c0de71d60791" absoluteBounds="3.8900000000000006, 3.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3d2995a4-05c8-46eb-9335-c0de71d60791" absoluteBounds="3.3900000000000006, 3.335, 1.9700000000000002, 0.44169108072916663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3e9c7cba-4978-46e3-a0d1-a442fa8d350d" absoluteBounds="3.875, 0.75, 2, 1.0016910807291668">
-      <DataClassMoniker Name="/ZooDbDataContext/ZooAnimal" />
+    <classShape Id="47901319-5995-46d5-a367-46b18d11c938" absoluteBounds="3.5, 1.125, 2, 1.0016910807291666">
+      <DataClassMoniker Name="/ZooDbDataContext/Dog" />
       <nestedChildShapes>
-        <elementListCompartment Id="1f4c359c-2ed7-44e7-bd71-4c1442ac27e9" absoluteBounds="3.89, 1.21, 1.9700000000000002, 0.44169108072916663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="68f39e29-65f3-43d7-84ef-35d4855771d3" absoluteBounds="3.5150000000000006, 1.585, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <inheritanceConnector edgePoints="[(4.875 : 1.75169108072917); (4.875 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="7a7fe09e-e9ef-4b01-9ff3-bde95e827b62">
+    <inheritanceConnector edgePoints="[(2.75 : 3.37584554036458); (3.375 : 3.37584554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm" TargetRelationshipDomainClassId="7a7fe09e-e9ef-4b01-9ff3-bde95e827b62">
       <nodes>
-        <classShapeMoniker Id="3e9c7cba-4978-46e3-a0d1-a442fa8d350d" />
+        <classShapeMoniker Id="1d66aadb-13c2-47ba-95b4-dc5476d1bddb" />
         <classShapeMoniker Id="a7b690fc-ff28-4608-818a-e8424c2364f7" />
       </nodes>
     </inheritanceConnector>
-    <inheritanceConnector edgePoints="[(2.75 : 1.43834554036458); (3.875 : 1.43834554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="7a7fe09e-e9ef-4b01-9ff3-bde95e827b62">
+    <inheritanceConnector edgePoints="[(2.75 : 1.62584554036458); (3.5 : 1.62584554036458)]" fixedFrom="Algorithm" fixedTo="Algorithm" TargetRelationshipDomainClassId="7a7fe09e-e9ef-4b01-9ff3-bde95e827b62">
       <nodes>
         <classShapeMoniker Id="1d66aadb-13c2-47ba-95b4-dc5476d1bddb" />
-        <classShapeMoniker Id="3e9c7cba-4978-46e3-a0d1-a442fa8d350d" />
+        <classShapeMoniker Id="47901319-5995-46d5-a367-46b18d11c938" />
       </nodes>
     </inheritanceConnector>
   </nestedChildShapes>

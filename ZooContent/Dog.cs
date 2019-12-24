@@ -1,16 +1,20 @@
-﻿namespace ZooContent
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZooContent
 {
-    /// <summary>
-    /// Животное, Кошка
-    /// </summary>
+
     [System.Serializable]
-    public partial class Cat : Animal
+    public partial class Dog : Animal
     {
         partial void OnCreated()
         {
-            Name = "Кошка";
-            ContentType = "Cat";
-            Song = "Мяу";
+            Name = "Собака";
+            ContentType = "Dog";
+            Song = "Гав";
             Reproduction = ReproductionEnum.Genezis.ToString();
         }
 

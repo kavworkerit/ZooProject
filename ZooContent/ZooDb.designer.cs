@@ -35,12 +35,6 @@ namespace ZooContent
     partial void DeleteAnimal(Animal instance);
     #endregion
 		
-		public ZooDbDataContext() : 
-				base(global::ZooContent.Properties.Settings.Default.ZooDbConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public ZooDbDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -74,10 +68,11 @@ namespace ZooContent
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="ZooAnimal", Type=typeof(ZooAnimal), IsDefault=true)]
+	[global::System.Data.Linq.Mapping.TableAttribute()]
+	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="Animal", Type=typeof(Animal), IsDefault=true)]
 	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="Cat", Type=typeof(Cat))]
-	public abstract partial class Animal : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.InheritanceMappingAttribute(Code="Dog", Type=typeof(Dog))]
+	public partial class Animal : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -86,7 +81,7 @@ namespace ZooContent
 		
 		private string _From;
 		
-		private double _Cost;
+		private float _Cost;
 		
 		private string _Nickname;
 		
@@ -100,9 +95,11 @@ namespace ZooContent
 		
 		private string _Reproduction;
 		
-		private int _Id = default(int);
+		private string _Song;
 		
-		private string _AType;
+		private string _ContentType;
+		
+		private int _Id = default(int);
 		
     #region Определения метода расширяемости
     partial void OnLoaded();
@@ -112,7 +109,7 @@ namespace ZooContent
     partial void OnNameChanged();
     partial void OnFromChanging(string value);
     partial void OnFromChanged();
-    partial void OnCostChanging(double value);
+    partial void OnCostChanging(float value);
     partial void OnCostChanged();
     partial void OnNicknameChanging(string value);
     partial void OnNicknameChanged();
@@ -126,8 +123,10 @@ namespace ZooContent
     partial void OnGenderChanged();
     partial void OnReproductionChanging(string value);
     partial void OnReproductionChanged();
-    partial void OnATypeChanging(string value);
-    partial void OnATypeChanged();
+    partial void OnSongChanging(string value);
+    partial void OnSongChanged();
+    partial void OnContentTypeChanging(string value);
+    partial void OnContentTypeChanged();
     #endregion
 		
 		public Animal()
@@ -135,7 +134,7 @@ namespace ZooContent
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.WhenChanged)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -176,7 +175,7 @@ namespace ZooContent
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost", DbType="Float NOT NULL")]
-		public double Cost
+		public float Cost
 		{
 			get
 			{
@@ -315,32 +314,52 @@ namespace ZooContent
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="INT", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Song", DbType="VarChar (255) NOT NULL DEFAULT(\'\')", CanBeNull=false)]
+		public virtual string Song
+		{
+			get
+			{
+				return this._Song;
+			}
+			set
+			{
+				if ((this._Song != value))
+				{
+					this.OnSongChanging(value);
+					this.SendPropertyChanging();
+					this._Song = value;
+					this.SendPropertyChanged("Song");
+					this.OnSongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContentType", DbType="VARCHAR(50) NOT NULL", CanBeNull=false, IsDiscriminator=true)]
+		public string ContentType
+		{
+			get
+			{
+				return this._ContentType;
+			}
+			set
+			{
+				if ((this._ContentType != value))
+				{
+					this.OnContentTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ContentType = value;
+					this.SendPropertyChanged("ContentType");
+					this.OnContentTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="INT IDENTITY(1,1) NOT NULL", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int Id
 		{
 			get
 			{
 				return this._Id;
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", DbType="VARCHAR(50)", CanBeNull=false, IsDiscriminator=true)]
-		public virtual string AType
-		{
-			get
-			{
-				return this._AType;
-			}
-			set
-			{
-				if ((this._AType != value))
-				{
-					this.OnATypeChanging(value);
-					this.SendPropertyChanging();
-					this._AType = value;
-					this.SendPropertyChanged("AType");
-					this.OnATypeChanged();
-				}
 			}
 		}
 		
@@ -365,51 +384,10 @@ namespace ZooContent
 		}
 	}
 	
-	public partial class ZooAnimal : Animal
-	{
-		
-		private string _AType;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnATypeChanging(string value);
-    partial void OnATypeChanged();
-    #endregion
-		
-		public ZooAnimal()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", DbType="VARCHAR(50)", CanBeNull=false)]
-		public override string AType
-		{
-			get
-			{
-				return this._AType;
-			}
-			set
-			{
-				if ((this._AType != value))
-				{
-					this.OnATypeChanging(value);
-					this.SendPropertyChanging();
-					this._AType = value;
-					this.SendPropertyChanged("AType");
-					this.OnATypeChanged();
-				}
-			}
-		}
-	}
-	
-	public partial class Cat : ZooAnimal
+	public sealed partial class Cat : Animal
 	{
 		
 		private string _Song;
-		
-		private string _AType;
 		
     #region Определения метода расширяемости
     partial void OnLoaded();
@@ -417,8 +395,6 @@ namespace ZooContent
     partial void OnCreated();
     partial void OnSongChanging(string value);
     partial void OnSongChanged();
-    partial void OnATypeChanging(string value);
-    partial void OnATypeChanged();
     #endregion
 		
 		public Cat()
@@ -426,8 +402,8 @@ namespace ZooContent
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Song", CanBeNull=false)]
-		public string Song
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Song", DbType="VarChar (255) NOT NULL DEFAULT(\'\')", CanBeNull=false)]
+		public override string Song
 		{
 			get
 			{
@@ -445,23 +421,42 @@ namespace ZooContent
 				}
 			}
 		}
+	}
+	
+	public sealed partial class Dog : Animal
+	{
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", DbType="VARCHAR(50)", CanBeNull=false)]
-		public override string AType
+		private string _Song;
+		
+    #region Определения метода расширяемости
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSongChanging(string value);
+    partial void OnSongChanged();
+    #endregion
+		
+		public Dog()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Song", DbType="VarChar (255) NOT NULL DEFAULT(\'\')", CanBeNull=false)]
+		public override string Song
 		{
 			get
 			{
-				return this._AType;
+				return this._Song;
 			}
 			set
 			{
-				if ((this._AType != value))
+				if ((this._Song != value))
 				{
-					this.OnATypeChanging(value);
+					this.OnSongChanging(value);
 					this.SendPropertyChanging();
-					this._AType = value;
-					this.SendPropertyChanged("AType");
-					this.OnATypeChanged();
+					this._Song = value;
+					this.SendPropertyChanged("Song");
+					this.OnSongChanged();
 				}
 			}
 		}

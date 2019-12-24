@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZooLinqDBTest
 {
-    public partial class AContent: A
-    {
-    }
+    //public partial class AContent: A
+    //{
+    //}
 }

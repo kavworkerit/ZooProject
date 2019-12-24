@@ -8,28 +8,13 @@ namespace ZooContent
     /// </summary>
     public abstract class ZooContent : IZooContent
     {
-        public ZooContent()
+        protected ZooContent()
         {
         }
 
-        protected ZooContent(string name, string from, double cost)
-        {
-            Name = name;
-            From = from;
-            Cost = cost;
-        }
-        /// <summary>
-        /// Название
-        /// </summary>
-        public virtual string Name { get; set; }
-        /// <summary>
-        /// От куда родом
-        /// </summary>
-        public virtual string From { get; set; }
-        /// <summary>
-        /// Стоимость
-        /// </summary>
-        public virtual double Cost { get; set; }
+        public abstract float Cost { get; set; }
+        public abstract string From { get; set; }
+        public abstract string Name { get; set; }
 
         public override bool Equals(object obj)
         {

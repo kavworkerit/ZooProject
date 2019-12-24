@@ -34,12 +34,6 @@ namespace ZooLinqDBTest
     partial void DeleteAContent(AContent instance);
     #endregion
 		
-		public dcZooDBDataContext() : 
-				base(global::ZooLinqDBTest.Properties.Settings.Default.ZooDCConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public dcZooDBDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -71,14 +65,6 @@ namespace ZooLinqDBTest
 				return this.GetTable<AContent>();
 			}
 		}
-		
-		public System.Data.Linq.Table<A> A
-		{
-			get
-			{
-				return this.GetTable<A>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
@@ -94,12 +80,16 @@ namespace ZooLinqDBTest
 		
 		private string _AType;
 		
+		private string _Title;
+		
     #region Определения метода расширяемости
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnATypeChanging(string value);
     partial void OnATypeChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
     #endregion
 		
 		public AContent()
@@ -107,7 +97,7 @@ namespace ZooLinqDBTest
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int identity(1,1) not null", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int Id
 		{
 			get
@@ -116,8 +106,8 @@ namespace ZooLinqDBTest
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", DbType="varchar(50)", CanBeNull=false, IsDiscriminator=true)]
-		public virtual string AType
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", DbType="varchar(50) NOT NULL", CanBeNull=false, IsDiscriminator=true)]
+		public string AType
 		{
 			get
 			{
@@ -132,6 +122,26 @@ namespace ZooLinqDBTest
 					this._AType = value;
 					this.SendPropertyChanged("AType");
 					this.OnATypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="varchar(50) NOT NULL", CanBeNull=false)]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
 				}
 			}
 		}
@@ -160,18 +170,14 @@ namespace ZooLinqDBTest
 	public sealed partial class AChildFirst : AContent
 	{
 		
-		private string _Title;
-		
-		private string _AType;
+		private string _FirstGen;
 		
     #region Определения метода расширяемости
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnATypeChanging(string value);
-    partial void OnATypeChanged();
+    partial void OnFirstGenChanging(string value);
+    partial void OnFirstGenChanged();
     #endregion
 		
 		public AChildFirst()
@@ -179,42 +185,22 @@ namespace ZooLinqDBTest
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", CanBeNull=false)]
-		public string Title
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstGen", DbType="varchar(50)")]
+		public string FirstGen
 		{
 			get
 			{
-				return this._Title;
+				return this._FirstGen;
 			}
 			set
 			{
-				if ((this._Title != value))
+				if ((this._FirstGen != value))
 				{
-					this.OnTitleChanging(value);
+					this.OnFirstGenChanging(value);
 					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", CanBeNull=false)]
-		public override string AType
-		{
-			get
-			{
-				return this._AType;
-			}
-			set
-			{
-				if ((this._AType != value))
-				{
-					this.OnATypeChanging(value);
-					this.SendPropertyChanging();
-					this._AType = value;
-					this.SendPropertyChanged("AType");
-					this.OnATypeChanged();
+					this._FirstGen = value;
+					this.SendPropertyChanged("FirstGen");
+					this.OnFirstGenChanged();
 				}
 			}
 		}
@@ -223,18 +209,14 @@ namespace ZooLinqDBTest
 	public partial class AChildSecond : AContent
 	{
 		
-		private string _Title;
-		
-		private string _AType;
+		private string _SecondGen;
 		
     #region Определения метода расширяемости
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnATypeChanging(string value);
-    partial void OnATypeChanged();
+    partial void OnSecondGenChanging(string value);
+    partial void OnSecondGenChanged();
     #endregion
 		
 		public AChildSecond()
@@ -242,87 +224,22 @@ namespace ZooLinqDBTest
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", CanBeNull=false)]
-		public string Title
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SecondGen", DbType="varchar(50)")]
+		public string SecondGen
 		{
 			get
 			{
-				return this._Title;
+				return this._SecondGen;
 			}
 			set
 			{
-				if ((this._Title != value))
+				if ((this._SecondGen != value))
 				{
-					this.OnTitleChanging(value);
+					this.OnSecondGenChanging(value);
 					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AType", CanBeNull=false)]
-		public override string AType
-		{
-			get
-			{
-				return this._AType;
-			}
-			set
-			{
-				if ((this._AType != value))
-				{
-					this.OnATypeChanging(value);
-					this.SendPropertyChanging();
-					this._AType = value;
-					this.SendPropertyChanged("AType");
-					this.OnATypeChanged();
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	public abstract partial class A
-	{
-		
-		private string _Name;
-		
-		private int _Age;
-		
-		public A()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VARCHAR(50)", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="INT")]
-		public int Age
-		{
-			get
-			{
-				return this._Age;
-			}
-			set
-			{
-				if ((this._Age != value))
-				{
-					this._Age = value;
+					this._SecondGen = value;
+					this.SendPropertyChanged("SecondGen");
+					this.OnSecondGenChanged();
 				}
 			}
 		}

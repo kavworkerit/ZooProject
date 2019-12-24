@@ -26,8 +26,8 @@ namespace ConsoleZoo.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ZooDb;Integrated Security=True" +
-            ";Pooling=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=ZooDb;Integrated Security=True" +
+            "")]
         public string ZooDbConnectionString {
             get {
                 return ((string)(this["ZooDbConnectionString"]));
